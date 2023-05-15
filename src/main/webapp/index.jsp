@@ -45,10 +45,10 @@
 						}
 						}
 						%>
-					</select>
-					<label>Precio</label>
-					<input type="number" class="form-control" placeholder="Cantidad"name="min" value="1">
-					<input type="number" class="form-control" placeholder="Cantidad"name="max" value="">
+					</select> <label>Precio</label> <input type="number" class="form-control"
+						placeholder="Cantidad" name="min" value="1"> <input
+						type="number" class="form-control" placeholder="Cantidad"
+						name="max" value="">
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary mt-2">Filtrar</button>
@@ -67,25 +67,28 @@
 			%>
 			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
 				<%
-				if (articulo.getStock() > 0) {
+				if (articulo.getStock() > 0&& !articulo.isBaja()) {
 				%>
 				<div class="card">
 					<%
-					Blob imagen = articulo.getImagen();
-					if (imagen != null) {
-						byte[] imagenBytes=ServicioArticulo.convertirImagen(imagen);
+					if (articulo.getImagen() != null) {
+						byte[] imagenBytes=ServicioArticulo.convertirImagen(articulo.getImagen());
+						if(imagenBytes!=null){
 						String base64Image = Base64.getEncoder().encodeToString(imagenBytes);
 						String imageData = "data:image/png;base64," + base64Image;
-					%>
+						%>
 					<img class="card-img-top" src="<%=imageData%>" alt="Card image cap">
 					<%
+						}
 					}
 					%>
 					<div class="card-body">
 						<h5 class="card-title"><%=articulo.getNombre()%></h5>
 						<p class="card-text"><%=articulo.getDescripcion()%></p>
 						<p class="card-text">
-							Precio: <%=articulo.getPrecio()%>€</p>
+							Precio:
+							<%=articulo.getPrecio()%>€
+						</p>
 						<form action="agregar" method="post">
 							<input type="hidden" name="id" value="<%=articulo.getId()%>">
 							<div class="input-group mb-3">
@@ -108,13 +111,10 @@
 							Articulo</a>
 					</div>
 				</div>
-
 			</div>
-			<%
-			}
-			}
-			}
-			%>
+			<%}
+			} 
+		}%>
 		</div>
 	</div>
 	<jsp:include page="footer.jsp"></jsp:include>

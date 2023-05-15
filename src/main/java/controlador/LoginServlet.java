@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			if (usuario != "") {
 				Usuario user = ServicioLogin.comprobarUsuario(usuario, password);
-				if (user != null) {
+				if (user != null&&!user.isBaja()) {
 					HttpSession sesion = request.getSession();
 					sesion.setAttribute("usuario", user);
 					Cookie cookie= new Cookie("UsuarioTienda", user.getEmail());

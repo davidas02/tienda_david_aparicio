@@ -54,7 +54,7 @@ public class Alta extends HttpServlet {
 		
 		if(!email.equals("")&&!password1.equals("")&&!password2.equals("")) {
 			if(ConexionDAO.comprobarUsuarioEnBD(email)==null) {
-				Usuario usuario=new Usuario(0,RolDAO.getRol(2),email,Usuario.encriptarPassword(password1),nombre,apellidos);
+				Usuario usuario=new Usuario(0,RolDAO.getRol(2),email,Usuario.encriptarPassword(password1),nombre,apellidos,false);
 				ConexionDAO.insertarUsuario(usuario);
 				request.setAttribute("login", "Usuario "+ email+" creado con exito");
 				request.getRequestDispatcher("login.jsp").forward(request, response);

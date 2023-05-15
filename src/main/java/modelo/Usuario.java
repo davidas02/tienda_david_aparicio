@@ -29,7 +29,7 @@ public class Usuario implements Serializable{
 	private String clave;
 	private String nombre;
 	private String apellidos;
-	
+	private boolean baja;
 	public static String encriptarPassword(String password) {
 		StrongPasswordEncryptor encriptador = new StrongPasswordEncryptor();
 		String encryptedPassword = encriptador.encryptPassword(password);

@@ -19,11 +19,11 @@ import lombok.NoArgsConstructor;
 public class Detalle implements Serializable{
 	@Id
 	private int id;
-	@Id
+	
 	@ManyToOne
 	@JoinColumn(name = "pedido_id")
 	private Pedido pedido;
-	@Id
+	
 	@ManyToOne
 	@JoinColumn(name = "producto_id")
 	private Articulo producto;

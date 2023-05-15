@@ -25,6 +25,7 @@ public class Articulo implements Serializable{
     @ManyToOne
     @JoinColumn(name = "id_categoria")
     private Categoria categoria;
+    private boolean baja;
     public Articulo(){
     	
     }
@@ -111,8 +112,16 @@ public class Articulo implements Serializable{
 		return categoria;
 	}
 
-	public void setIdCategoria(Categoria idCategoria) {
+	public void setCategoria(Categoria idCategoria) {
 		this.categoria = idCategoria;
+	}
+
+	public boolean isBaja() {
+		return baja;
+	}
+
+	public void setBaja(boolean baja) {
+		this.baja = baja;
 	}
 	
 	
