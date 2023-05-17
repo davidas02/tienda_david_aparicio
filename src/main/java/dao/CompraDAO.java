@@ -33,7 +33,7 @@ public class CompraDAO {
 		for (Entry<Integer, Articulo> articulo : articulos.entrySet()) {
 			Articulo art = articulo.getValue();
 			Articulo articuloEscogido=ArticuloDAO.obtenerArticulo(art.getId());
-			if (art.getCantidad() > 0&&art.getCantidad()<articuloEscogido.getStock()) {
+			if (art.getCantidad() > 0&&art.getCantidad()<=articuloEscogido.getStock()) {
 				total += art.getPrecio() * art.getCantidad();
 			}
 		}
@@ -43,15 +43,20 @@ public class CompraDAO {
 		Session sesion=HibernateManager.getSessionFactory().openSession();
 		Transaction tx= sesion.beginTransaction();
 		Pedido pedido= new Pedido(idPedido, usuario, "tarjeta", 0, total, Timestamp.valueOf(LocalDateTime.now()),EstadoDao.getEstado("PE"));
-		sesion.save(pedido);
-		tx.commit();
-		sesion.close();
+		boolean primero=true;
 		for (Entry<Integer, Articulo> articulo : articulos.entrySet()) {
 			Articulo art = articulo.getValue();
 			Articulo articuloEscogido=ArticuloDAO.obtenerArticulo(art.getId());
-			if (art.getCantidad() > 0&&art.getCantidad()<articuloEscogido.getStock()) {
+			if (art.getCantidad() > 0&&art.getCantidad()<=articuloEscogido.getStock()) {
+				if(primero) {
+				sesion.save(pedido);
+				tx.commit();
+				sesion.close();
+				primero=false;
+				}
 				Detalle detalle =new Detalle(idDetalle,pedido,art,art.getCantidad(),art.getPrecio(),art.getImpuesto(),art.getCantidad()*art.getPrecio());
 				DetalleDAO.introducirDetalle(detalle);
+				ArticuloDAO.actualizarStock(articuloEscogido.getId(), art.getCantidad());
 				idDetalle++;
 			}
 		}
@@ -147,24 +152,18 @@ public class CompraDAO {
 		return pedido;
 	}
 	public static void cancelarPedido(int idPedido) {
-		Estado estado=EstadoDao.getEstado("C");
+		Estado estado=EstadoDao.getEstado("PC");
 		Pedido pedido=getPedido(idPedido);
 		pedido.setEstado(estado);
 		Session sesion=HibernateManager.getSessionFactory().openSession();
 		Transaction tx=sesion.beginTransaction();
 		sesion.update(pedido);
-		List<Detalle> detalles=DetalleDAO.getDetallePedido(pedido.getIdPedido());
-		for(Detalle detalle:detalles) {
-			Articulo articulo=ArticuloDAO.obtenerArticulo(detalle.getProducto().getId());
-			articulo.setStock(articulo.getStock()+detalle.getUnidades());
-			sesion.update(articulo);
-		}
 		tx.commit();
 		sesion.close();
 	}
 	public static int enviarPedido(int idPedido) {
 		int numFactura=getNumFactura();
-		Estado estado=EstadoDao.getEstado("E");
+		Estado estado=EstadoDao.getEstado("PE");
 		Pedido pedido=getPedido(idPedido);
 		pedido.setEstado(estado);
 		pedido.setNumFactura(numFactura);

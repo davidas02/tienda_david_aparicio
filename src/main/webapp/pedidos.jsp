@@ -28,7 +28,7 @@ if(pedidos!=null){
 	   <input type="date" name="fecha1" id="fecha1">
 	   <label for="fecha2">fecha2</label>
        <input type="date" name="fecha2" id="fecha2">
-       <button type="submit">Filtrar</button>
+       <button type="submit" class="btn btn-dark">Filtrar</button>
 	</form>
 	<%
 	for(Pedido pedido:pedidos){
@@ -51,7 +51,7 @@ if(pedidos!=null){
 						} %>
 						<p class="card-text">
 							Total: <%=pedido.getTotal()%>€</p>
-						<a href="detalle?idPedido=<%= pedido.getIdPedido()%>">Productos del pedido</a>
+						<a class=" btn btn-secondary" href="detalle?idPedido=<%= pedido.getIdPedido()%>">Productos del pedido</a>
 					</div>
 				</div>
 

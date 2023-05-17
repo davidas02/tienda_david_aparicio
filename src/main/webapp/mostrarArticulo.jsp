@@ -24,15 +24,18 @@
 if(articulo!=null){
 %>
 	<div class="card">
-		<%Blob imagen=articulo.getImagen();
-                    if(imagen!=null){
-                    byte[] imagenBytes=ServicioArticulo.convertirImagen(imagen);
-                    String base64Image=Base64.getEncoder().encodeToString(imagenBytes);
-                    String imageData="data:image/png;base64,"+base64Image;
-                    %>
-                    <img class="img-thumbnail" src="<%=imageData%>"
-                        alt="Card image cap" height="250px" width="250px">
-                        <%} %>
+		<%
+					if (articulo.getImagen() != null) {
+						byte[] imagenBytes=ServicioArticulo.convertirImagen(articulo.getImagen());
+						if(imagenBytes!=null){
+						String base64Image = Base64.getEncoder().encodeToString(imagenBytes);
+						String imageData = "data:image/png;base64," + base64Image;
+						%>
+					<img class="card-img-top" src="<%=imageData%>" alt="Card image cap">
+					<%
+						}
+					}
+					%>
 			<div class="card-body">
 				<h5 class="card-title"><%=articulo.getNombre()%></h5>
 				<p class="card-text"><%=articulo.getDescripcion()%></p>

@@ -20,6 +20,9 @@
 </head>
 <body>
 	<%@ include file="header.jsp"%>
+	
+	<!-- Zona central -->
+	<div class="container my-5">
 	<form action="./" method="post" class="form-horizontal">
 		<fieldset>
 
@@ -55,8 +58,6 @@
 
 		</fieldset>
 	</form>
-	<!-- Zona central -->
-	<div class="container my-5">
 		<div class="row">
 			<%
 			List<Articulo> catalogo = (List<Articulo>) request.getAttribute("catalogo");
@@ -67,7 +68,7 @@
 			%>
 			<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
 				<%
-				if (articulo.getStock() > 0&& !articulo.isBaja()) {
+				if (articulo.getStock() > 0&&!articulo.isBaja()) {
 				%>
 				<div class="card">
 					<%
@@ -107,7 +108,8 @@
 							<button type="submit" class="btn btn-primary mt-2">Agregar
 								al carrito</button>
 						</form>
-						<a href="muestraArticulo?id=<%=articulo.getId()%>">Mostrar
+						<p></p>
+						<a class="btn btn-warning" href="muestraArticulo?id=<%=articulo.getId()%>">Mostrar
 							Articulo</a>
 					</div>
 				</div>

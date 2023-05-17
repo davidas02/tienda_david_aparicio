@@ -20,45 +20,48 @@
 	<%@ include file="header.jsp"%>
 	<%
 	ArrayList<Articulo> articulos = (ArrayList<Articulo>) request.getAttribute("detalles");
-	%>
-	<%
 	if (articulos != null) {
-%>
-	<h1>Detalles del pedido <%= request.getAttribute("numPedido") %></h1>
-<%
-		for (Articulo articulo : articulos) {
 	%>
-	<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-
-		<div class="card">
-			<%
-			Blob imagen=articulo.getImagen();
-			if (imagen != null) {
-				byte[] imagenBytes = ServicioArticulo.convertirImagen(imagen);
-				String base64Image = Base64.getEncoder().encodeToString(imagenBytes);
-				String imageData = "data:image/png;base64," + base64Image;
-			%>
-			<img class="card-img-top" src="<%=imageData%>" alt="Card image cap">
-			<%
-			}
-			%>
-			<div class="card-body">
-				<h5 class="card-title"><%=articulo.getNombre()%></h5>
-				<p class="card-text"><%=articulo.getDescripcion()%></p>
-				<p class="card-text">
-					Precio: <%=articulo.getPrecio()%>€</p>
-				<p class="card-text">
-					Cantidad:
-					<%=articulo.getCantidad()%></p>
-			</div>
-			<a href="muestraArticulo?id=<%=articulo.getId()%>">Mostrar
-				Articulo</a>
-		</div>
-	</div>
-
-	</div>
+	<h1>
+		Detalles del pedido
+		<%=request.getAttribute("numPedido")%></h1>
 	<%
-	}
+		for (Articulo articulo : articulos) {
+		%>
+		<div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+	
+			<div class="card">
+				<% if (articulo.getImagen() != null) {
+							byte[] imagenBytes=ServicioArticulo.convertirImagen(articulo.getImagen());
+							if(imagenBytes!=null){
+							String base64Image = Base64.getEncoder().encodeToString(imagenBytes);
+							String imageData = "data:image/png;base64," + base64Image;
+							%>
+						<img class="card-img-top" src="<%=imageData%>" alt="Card image cap">
+						<%
+							}
+						}
+						%>
+				<div class="card-body">
+					<h5 class="card-title"><%=articulo.getNombre()%></h5>
+					<p class="card-text"><%=articulo.getDescripcion()%></p>
+					<p class="card-text">
+						Precio:
+						<%=articulo.getPrecio()%>€
+					</p>
+					<p class="card-text">
+						Cantidad:
+						<%=articulo.getCantidad()%></p>
+				</div>
+				<p></p>
+				<a class="btn btn-warning"
+					href="muestraArticulo?id=<%=articulo.getId()%>">Mostrar Articulo</a>
+			</div>
+		</div>
+	
+		</div>
+		<%
+		}
 	}
 	%>
 	</div>

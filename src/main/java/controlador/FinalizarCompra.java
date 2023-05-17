@@ -39,7 +39,7 @@ public class FinalizarCompra extends HttpServlet {
 	    if(user!=null) {
 	    	if(articulos!=null) {
 				CompraDAO.insertarPedido(articulos, user);
-				request.getSession().setAttribute("carrito",new HashMap<Integer, Articulo>());
+				request.getSession().removeAttribute("carrito");
 				request.getRequestDispatcher("compraFinalizada.jsp").forward(request, response);
 			    request.getSession().removeAttribute("comprando");
 			    if(cookies!=null) {

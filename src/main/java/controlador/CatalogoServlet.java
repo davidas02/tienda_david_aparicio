@@ -1,13 +1,9 @@
 package controlador;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,10 +16,9 @@ import org.apache.commons.lang3.SerializationUtils;
 
 import dao.ArticuloDAO;
 import dao.CategoriaDAO;
-import dao.EstadoDao;
+import dao.ConfiguracionDAO;
 import modelo.Articulo;
 import modelo.Categoria;
-import modelo.Estado;
 
 //Controlador que se encarga de recuperar la lista de artículos desde la base de datos y mostrarlos en la vista
 @WebServlet("")
@@ -40,7 +35,6 @@ public class CatalogoServlet extends HttpServlet {
 		List<Articulo> catalogo = ArticuloDAO.obtenerCatalogo("");
 		request.setAttribute("catalogo", catalogo);
 		request.setAttribute("categorias", categorias);
-		
 		Cookie[] cookies=request.getCookies();
 		if(cookies!=null) {
 			for(Cookie cookie:cookies) {
@@ -54,8 +48,9 @@ public class CatalogoServlet extends HttpServlet {
 			request.getSession();
 			request.getSession().setAttribute("carrito", new HashMap<Integer, Articulo>() );
 			request.getSession().setAttribute("categorias", categorias);
+			
 		}
-		
+		request.getSession().setAttribute("configuracion", ConfiguracionDAO.get());
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 

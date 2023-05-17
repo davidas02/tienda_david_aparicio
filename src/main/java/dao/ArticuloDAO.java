@@ -81,10 +81,16 @@ public class ArticuloDAO {
 			transaccion.commit();
 			sesion.close();
 		}
-		
-		
 		return articulo;
-		
+	}
+	public static void actualizarStock(int id, int cantidad) {
+		Articulo articulo=obtenerArticulo(id);
+		articulo.setStock(articulo.getStock()-cantidad);
+		Session sesion=HibernateManager.getSessionFactory().openSession();
+		Transaction transaccion=sesion.beginTransaction();
+		sesion.update(articulo);
+		transaccion.commit();
+		sesion.close();
 	}
 	
 	

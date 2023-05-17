@@ -1,3 +1,4 @@
+<%@page import="modelo.Configuracion"%>
 <%@page import="modelo.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page import="modelo.Categoria"%>
@@ -7,10 +8,11 @@
 
     <%List<Categoria> categorias=(List<Categoria>) request.getAttribute("categorias");
     	Usuario usuario=(Usuario)session.getAttribute("usuario");
+    	Configuracion configuracion=(Configuracion)session.getAttribute("configuracion");
     %>
 	<!-- Header -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="navbar-brand" href="./">Mi Tienda</a>
+		<a class="navbar-brand" href="./"><%="Tienda " + configuracion.getNombre()%></a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarNav" aria-controls="navbarNav"
 			aria-expanded="false" aria-label="Toggle navigation">
