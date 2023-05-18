@@ -54,5 +54,28 @@ public class ConexionDAO {
 		session.update(user);
 		tx.commit();
 		session.close();
+		
+//		Connection connection = Conexion.getConexion();
+//         
+//        try {
+//		
+//            // Actualizar contraseña del usuario en la base de datos
+//            String sql = "UPDATE usuarios SET clave = ? WHERE email = ?";
+//             PreparedStatement statement = connection.prepareStatement(sql);
+//            statement.setString(1, password);
+//            statement.setString(2, email);
+//            statement.executeUpdate();
+//            
+//            // Confirmar la transacción
+//            connection.commit();
+//            
+//        } catch (SQLException e) {
+//            // Manejar excepciones
+//            e.printStackTrace();
+//            
+//        } finally {
+//            // Cerrar la conexión y liberar recursos
+//            Conexion.desconectar();
+//        }
 	}
 }

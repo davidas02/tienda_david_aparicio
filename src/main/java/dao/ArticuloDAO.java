@@ -40,7 +40,7 @@ public class ArticuloDAO {
 //		try {
 //			Connection conexion=Conexion.getConexion();
 //			Statement statement = conexion.createStatement();
-//			String sql="SELECT * FROM producto "+filtro+ " limit 24;";
+//			String sql="SELECT * FROM producto "+filtro";
 //			ResultSet resultSet = statement.executeQuery(sql);
 //			while (resultSet.next()) {
 //				int id = resultSet.getInt("id");

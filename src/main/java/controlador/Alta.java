@@ -52,7 +52,7 @@ public class Alta extends HttpServlet {
 		String nombre=request.getParameter("nombre");
 		String apellidos=request.getParameter("apellidos");
 		
-		if(!email.equals("")&&!password1.equals("")&&!password2.equals("")) {
+		if(!nombre.equals("")&&!apellidos.equals("")&&!email.equals("")&&!password1.equals("")&&!password2.equals("")) {
 			if(ConexionDAO.comprobarUsuarioEnBD(email)==null) {
 				Usuario usuario=new Usuario(0,RolDAO.getRol(2),email,Usuario.encriptarPassword(password1),nombre,apellidos,false);
 				ConexionDAO.insertarUsuario(usuario);

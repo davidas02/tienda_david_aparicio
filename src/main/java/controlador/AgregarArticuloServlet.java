@@ -54,6 +54,8 @@ public class AgregarArticuloServlet extends HttpServlet {
         if (carrito == null) {
             carrito = new HashMap<>();
             articulo.setCantidad(cantidad);
+            System.out.println(Double.parseDouble(String.format("%.2f",articulo.getPrecio()).replace(",", ".")));
+            articulo.setPrecio(Double.parseDouble(String.format("%.2f",articulo.getPrecio()).replace(",", ".")));
             carrito.put(articulo.getId(), articulo);
             session.setAttribute("carrito", carrito);
             
@@ -66,7 +68,8 @@ public class AgregarArticuloServlet extends HttpServlet {
 		            if(articuloExistente.getCantidad()+cantidad>0) {
 		            	System.out.println(cantidad+"   "+articuloExistente.getCantidad());
 		            	articuloExistente.setCantidad(articuloExistente.getCantidad()+cantidad);
-		            	
+		            	System.out.println(Double.parseDouble(String.format("%.2f",articuloExistente.getPrecio()).replace(",", ".")));
+		            	articuloExistente.setPrecio(Double.parseDouble(String.format("%.2f",articuloExistente.getPrecio()).replace(",", ".")));
 		            	carrito.replace(id, articuloExistente);
 		            }else {
 		            	if(articuloExistente.getCantidad()<=0) {
@@ -75,6 +78,8 @@ public class AgregarArticuloServlet extends HttpServlet {
 		            	}else {
 		            		
 		            		articuloExistente.setCantidad(articuloExistente.getCantidad()+cantidad);
+		            		System.out.println(Double.parseDouble(String.format("%.2f",articuloExistente.getPrecio()).replace(",", ".")));
+		            		articuloExistente.setPrecio(Double.parseDouble(String.format("%.2f",articuloExistente.getPrecio()).replace(",", ".")));
 		            		carrito.replace(id, articulo, articuloExistente);
 		            	}
 		            }

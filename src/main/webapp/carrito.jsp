@@ -82,6 +82,7 @@
 						double precio = articulo.getPrecio();
 						double subtotal = cantidad * precio;
 						total += subtotal;
+						
 				%>
 				<tr>
 					<th scope="row"><%=articulo.getId()%></th>
@@ -90,16 +91,16 @@
 					<td>
 					<div class="input-group mb-3">
 	                    <div class="input-group-prepend">
-	                        <a href="agregar?id=<%=articulo.getId()%>&cantidad=-1" >-</a>
+	                        <a class="btn btn-outline-danger btn-sm" href="agregar?id=<%=articulo.getId()%>&cantidad=-1" >-</a>
 	                    </div>
-						<%=cantidad%> 
+						<p style="margin-left: 2px; margin-right: 2px;"><%=cantidad%></p> 
 						<div class="input-group-append">
-	                      <a href="agregar?id=<%=articulo.getId()%>&cantidad=1">+</a>
+	                      <a class="btn btn-outline-success btn-sm" href="agregar?id=<%=articulo.getId()%>&cantidad=1">+</a>
                         </div> 
                     </div>
                     </td>
 					<td><%=precio%> €</td>
-					<td><%=subtotal%> €</td>
+					<td><%=Double.parseDouble(String.format("%.2f",subtotal).replace(",", "."))%> €</td>
 					<td><a href="eliminarCarrito?id=<%=articulo.getId()%>"
 						class="text-danger"> <i class="fas fa-trash-alt"></i>
 					</a></td>
@@ -120,7 +121,7 @@
 				<tr>
 					<th scope="row"></th>
 					<td colspan="4" class="text-right font-weight-bold">Total:</td>
-					<td><%=total%> €</td>
+					<td><%=Double.parseDouble(String.format("%.2f",total).replace(",", "."))%> €</td>
 					<td></td>
 				</tr>
 			</tfoot>
